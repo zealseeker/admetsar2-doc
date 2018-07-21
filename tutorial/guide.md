@@ -36,6 +36,14 @@ After the molecule is correctly input, click "Predict" to submit the job (*figur
 
 #### Results
 The *figure 4* shows the result page of ADMET prediction.
+The left part is the compound list. When more than one compound is submitted (see *Advanced Prediction* for details), they will be listed as "compound1", "compound2"... under the same order as the user input.
+The right part is the properties of the selected compound, including the structure, SMILES, physicochemical properties and the predictive ADMET properties.
+
+You can download all the results as a csv file by clicking the "Download the results" button below the SMILES. You can also optimize it with ADMETopt by clicking the "Optimize" button beside.
+
+![figure4](image/admetsar-result.PNG)
+
+The ADMET property table includes classification and regression results. For classification, the columns of the table are endpoint, value and probability, respectively. The value is the predict labels. For example, for toxicity endpoints, the value "+" means Positive/Toxic while "-" means Negative/Nontoxic. The probability is related to the value, so it is mostly higher than 50% since most machine learning models use 50% as a threshold to distinguish positive or negative results.
 
 ### Advanced prediction
 
@@ -65,11 +73,11 @@ The new version of admetSAR do not update the database for search. Instead, we a
 As shown in *figure 7*, you can search for a compound by CAS number, common name, IUPAC name or SMILES. To avoid subtle difference leading to empty result, we suggest to use similarity search instead of directly using SMILES.
 
 ![figure7](image/search.PNG)
-<center>Figure 7</center> 
+<center>Figure 7</center>
 
 ## Guide for ADMETopt
 
-ADMETopt is available at: [http://lmmd.ecust.edu.cn/admetsar2/admetopt/](http://lmmd.ecust.edu.cn/admetsar2/admetopt/). 
+ADMETopt is available at: [http://lmmd.ecust.edu.cn/admetsar2/admetopt/](http://lmmd.ecust.edu.cn/admetsar2/admetopt/).
 You can also click "Optimize" at the nevigation bar in [admetSAR](http://lmmd.ecust.edu.cn/admetsar2).
 
 ### Quickstart
@@ -85,7 +93,7 @@ Similar with predicting ADMET properties, the first thing is to prepare the SMIL
 
 In addition to the basic properties of the molecule, you will see all possible scaffolds available for optimization. Select the scaffold you want to replace and check it again (*figure 9*).
 
-![figure9](image/select-scaffold.PNG) 
+![figure9](image/select-scaffold.PNG)
 <center>Figure 9</center>
 
 #### Set constraints

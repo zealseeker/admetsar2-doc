@@ -42,6 +42,7 @@ The right part is the properties of the selected compound, including the structu
 You can download all the results as a csv file by clicking the "Download the results" button below the SMILES. You can also optimize it with ADMETopt by clicking the "Optimize" button beside.
 
 ![figure4](image/admetsar-result.PNG)
+<center>Figure 4</center>
 
 The ADMET property table includes classification and regression results. For classification, the columns of the table are endpoint, value and probability, respectively. The value is the predict labels. For example, for toxicity endpoints, the value "+" means Positive/Toxic while "-" means Negative/Nontoxic. The probability is related to the value, so it is mostly higher than 50% since most machine learning models use 50% as a threshold to distinguish positive or negative results. For the regression, the columns are endpoint, value and unit.
 

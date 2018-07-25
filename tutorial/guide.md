@@ -68,7 +68,7 @@ C1=CC=C(OC(=O)C)C(C(=O)O)=C1
 
 <center>
 ![figure5](image/advanced-predict.PNG)  
-Figure 5. Advanced prediction
+Figure 5. Entrance for advanced prediction
 </center>
 
 Click "Advanced Predict" in the home page and copy the SMILES of the molecules you want to predict to the textbox (*Figure 5*). Then you should select the endpoints you want to predict.
@@ -87,7 +87,7 @@ As shown in *Figure 7*, you can search for a compound by CAS number, common name
 
 <center>
 ![figure7](image/search.PNG)  
-Figure 7. Search for compounds.
+Figure 7. Entrance for compound searching.
 </center>
 
 ## 4. Guide for ADMETopt
@@ -117,7 +117,7 @@ Figure 9. Selection of molecular scaffold
 
 #### Set constraints
 In total 15 constraints can be set to optimize the properties of the query compound.
-You can add or remove the constraints by clicking "+" or "-" at the right of each constrain.
+You can add or remove the constraints by clicking "+" or "-" at the right of each constraint.
 For binary endpoints, such as Ames toxicity, blood brain barrier, select the "Positive/Negative" button to set the goal of optimization.
 For continue endpoints such as molecular weight, input the range of your goal such as 0 and 500 as minimum and maximum.
 You can also add the predefined rules below "Quick start", which are "Rule of 5", "Rule of 4", "Rule of 3", and "Non toxic" (*Figure 10*).
@@ -125,13 +125,13 @@ It should be noticed that if there are two constraints with the same endpoint, o
 
 <center>
 ![figure10](image/constraints.PNG)  
-Figure 10. Constrains for optimization
+Figure 10. Constraints for optimization
 </center>
 
 ### 4.2 Results and analysis
-After about 10 seconds (depending on the query compounds and constrains), the results will display in the page. All of the recommended structures fulfill the constrains you required. Click the structure you interested to see the details (*Figure 11*). Then you can chose to continue to optimize or predict its ADMET properties.
+After about 10 seconds (depending on the query compounds and constraints), the results will display in the page. All of the recommended structures fulfill the constraints you required. Click the structure you interested to see the details (*Figure 11*). Then you can chose to continue to optimize or predict its ADMET properties.
 
 <center>
 ![figure11](image/recommended-structures.PNG)  
 Figure 11. Details of the optimized structure
-</center> 
+</center>

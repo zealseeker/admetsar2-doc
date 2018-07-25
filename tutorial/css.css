@@ -1,4 +1,5 @@
-img { image-resolution: 150dpi }
+img { image-resolution: 150dpi;margin: auto }
 @page{size: A4; margin: 50px}
-body{text-align:justify;font-family: 'Arial'}
+body{text-align:justify;font-family: 'Arial';line-height: 1.5em}
 .title{font-size:30px; font-weight: 700}
+p {padding:0; margin:0;}

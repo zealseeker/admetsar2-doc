@@ -17,71 +17,93 @@
     .banquan table{  margin-left: auto; margin-right: auto; font-size: 12px; color: #ffffff; padding-top: 28px;}
     .bottom_nav ul li{ color: #ffffff; font-size: 12px; float: left; margin-left: 3px;}
     .bottom_nav ul li a{ color: #ffffff; font-size: 12px; float: left; line-height: 17px;}
+    [v-cloak] {display: none;}
 </style>
 </head>
 <body>
-
-    <div class="neirong">
-        <h1>About admetSAR</h1>
-        <div class="line">
-            <!-- <img src="{{url_header}}/static/images/predict/line1.png" alt=""> -->
-        </div>
-
-        <p>
-            Absorption, Distribution, Metabolism, Excretion and Toxicity (ADMET) properties
-            of drug candidates or environmental chemicals play a key role in drug discovery
-            and environmental hazard assessment. The ADMET structure-activity relationship
-            server, entitled admetSAR, is a comprehensive knowledge and tool for predicting
-            ADMET properties of drug candidates and environmental chemicals. In our server,
-            over 200,000 ADMET annotated data points for about 96 thousand of unique
-            compounds have been manually curated from large literatures. The admetSAR
-            server provides a user-friendly interface to easily search for chemical
-            profiles, by CASRN, common name and similarity search.
-        </p>
-        <p>
-            The new version of admetSAR (version 2.0) mainly focuses on in silico
-            prediction of chemical ADMET properties. More than 40 predictive models were
-            implemented in admetSAR for new chemical ADMET properties in silico filtering.
-            These models are trianed by state-of-the-art machine learning methods
-            including support vector machine, k-nearest neighbors, nueral network, etc.
-        </p>
-        <span><b>Website</b></span>
-        <p><a href="http://lmmd.ecust.edu.cn/admetsar2">http://lmmd.ecust.edu.cn/admetsar2</a></p>
-        <p>Sometimes you may not be able to visit the website due to security issues in China.
-            Please be patient or contact the corresponding author
-            <a href="mailto:ytang234@ecust.edu.cn">Prof. Yun Tang</a>
-            for support.
-        </p>
-        <span><b>Tutorial</b></span>
-        <p>
-            The tutorial can be downloaded
-            <a href="https://github.com/zealseeker/admetsar2-doc/releases/download/v0.9.1/guide.pdf">here</a>.
-            Contribution to the tutorial is welcome. Please click
-            <a href="https://github.com/zealseeker/admetsar2-doc">here</a> to see the source.
-            For feedback, suggestions, or for bug reports, feel free to contact us.
-        </p>
-        <span><b>Citing admetSAR</b></span>
-        <li>
-            <a href="https://doi.org/10.1093/bioinformatics/bty707">https://doi.org/10.1093/bioinformatics/bty707</a></br>
-            Hongbin Yang, Chaofeng Lou, Lixia Sun, Jie Li, Yingchun Cai, Zhuang Wang, Weihua Li, Guixia Liu, Yun Tang. admetSAR 2.0: web-service for prediction and optimization of chemical ADMET properties. Bioinformatics, 2018, bty707.
-            <a href='https://doi.org/10.1093/bioinformatics/bty707'>⇓</a>
-        </li>
-        <li>Feixiong Cheng, Weihua Li, Yadi Zhou, Jie Shen, Zengrui Wu, Guixia Liu, Philip W. Lee, Yun Tang. admetSAR: a comprehensive source and free tool for evaluating chemical ADMET properties. J. Chem. Inf. Model., 2012, 52(11): 3099-3105. (This paper is
-            the hot paper of JCIM in Dec. 2012).
-            <a href='http://pubs.acs.org/doi/abs/10.1021/ci300367a'>⇓</a></li>
-        <p></p>
-
-        <h2>About the models</h2>
-        <div class="neirong_left">
-            <div id='app'>
-            <el-collapse v-model='activateNames'>
-                <el-collapse-item v-for="(it,i) in models" :name="i" :title="it.title" :key="i">
-                <div v-html="it.val"></div>
-                </el-collapse-item>
-            </el-collapse>
+    <div id='app'>
+        <div class="neirong">
+            <h1>About admetSAR</h1>
+            <div class="line">
+                <!-- <img src="{{url_header}}/static/images/predict/line1.png" alt=""> -->
             </div>
+
+            <p>
+                Absorption, Distribution, Metabolism, Excretion and Toxicity (ADMET) properties
+                of drug candidates or environmental chemicals play a key role in drug discovery
+                and environmental hazard assessment. The ADMET structure-activity relationship
+                server, entitled admetSAR, is a comprehensive knowledge and tool for predicting
+                ADMET properties of drug candidates and environmental chemicals. In our server,
+                over 200,000 ADMET annotated data points for about 96 thousand of unique
+                compounds have been manually curated from large literatures. The admetSAR
+                server provides a user-friendly interface to easily search for chemical
+                profiles, by CASRN, common name and similarity search.
+            </p>
+            <p>
+                The new version of admetSAR (version 2.0) mainly focuses on in silico
+                prediction of chemical ADMET properties. More than 40 predictive models were
+                implemented in admetSAR for new chemical ADMET properties in silico filtering.
+                These models are trianed by state-of-the-art machine learning methods
+                including support vector machine, k-nearest neighbors, nueral network, etc.
+            </p>
+            <span><b>Website</b></span>
+            <p><a href="http://lmmd.ecust.edu.cn/admetsar2">http://lmmd.ecust.edu.cn/admetsar2</a></p>
+            <p>Sometimes you may not be able to visit the website due to security issues in China.
+                Please be patient or contact the corresponding author
+                <a href="mailto:ytang234@ecust.edu.cn">Prof. Yun Tang</a>
+                for support.
+            </p>
+            <div v-cloak>
+                <p>
+                    <span><b>Current Status</b>
+                        <i class='el-icon-remove' v-if="status==3" style='color: #F56C6C; font-size: 1.5em;'></i>
+                        <i class='el-icon-success' v-if="status==1" style='color: #67C23A; font-size: 1.5em;'></i>
+                        <i class='el-icon-error' v-if="status==2" style='color: #909399; font-size: 1.5em;'></i>
+                        <i class='el-icon-question' v-if="status==4" style='color: #E6A23C; font-size: 1.5em;'></i>
+                    </span>
+                </p>
+                <p>
+                    {{info}}
+                </br>
+                    Last working date: {{lastSuccessDate}}
+                </p>
+                <p v-if="status>1">
+                    If you want to be notified when the server recovers: 
+                    <el-input style='width: 200px' autocomplete='on' v-model="input" placeholder="Input your email"></el-input>
+                    <el-button @click="subscribe">Subscribe</el-button>
+                </p>
+            </div>
+            <span><b>Tutorial</b></span>
+            <p>
+                The tutorial can be downloaded
+                <a href="https://github.com/zealseeker/admetsar2-doc/releases/download/v0.9.1/guide.pdf">here</a>.
+                Contribution to the tutorial is welcome. Please click
+                <a href="https://github.com/zealseeker/admetsar2-doc">here</a> to see the source.
+                For feedback, suggestions, or for bug reports, feel free to contact us.
+            </p>
+            <span><b>Citing admetSAR</b></span>
+            <li>
+                <a href="https://doi.org/10.1093/bioinformatics/bty707">https://doi.org/10.1093/bioinformatics/bty707</a></br>
+                Hongbin Yang, Chaofeng Lou, Lixia Sun, Jie Li, Yingchun Cai, Zhuang Wang, Weihua Li, Guixia Liu, Yun Tang. admetSAR 2.0: web-service for prediction and optimization of chemical ADMET properties. Bioinformatics, 2018, bty707.
+                <a href='https://doi.org/10.1093/bioinformatics/bty707'>⇓</a>
+            </li>
+            <li>Feixiong Cheng, Weihua Li, Yadi Zhou, Jie Shen, Zengrui Wu, Guixia Liu, Philip W. Lee, Yun Tang. admetSAR: a comprehensive source and free tool for evaluating chemical ADMET properties. J. Chem. Inf. Model., 2012, 52(11): 3099-3105. (This paper is
+                the hot paper of JCIM in Dec. 2012).
+                <a href='http://pubs.acs.org/doi/abs/10.1021/ci300367a'>⇓</a></li>
+            <p></p>
+
+            <h2>About the models</h2>
+            <div class="neirong_left">
+                
+                <el-collapse v-model='activateNames'>
+                    <el-collapse-item v-for="(it,i) in models" :name="i" :title="it.title" :key="i">
+                    <div v-html="it.val"></div>
+                    </el-collapse-item>
+                </el-collapse>
+                
+            </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
     <div class="banquan">
         <table width="96%" cellpadding="0" cellspacing="0">
@@ -97,7 +119,7 @@
                         </ul>
                     </div>
                 </td>
-                <td align="right">Copyright  @ 2020 admetSAR</td>
+                <td align="right">Copyright  @ 2021 admetSAR</td>
             </tr>
             <tr>
                 <td></td>
@@ -112,9 +134,51 @@
         $(function(){
             tf = new Vue({
             el: '#app',
-            data:{
+            data() {
+                return{
                 activateNames: ['1'],
-                models: []
+                models: [],
+                status: 0,
+                lastSuccessDate: null,
+                info: '',
+                input: ''
+                }},
+            methods: {
+                getStatus(){
+                    fetch('https://dfqed3.deta.dev/get_status').then(function(res){
+                        return res.json()
+                    }).then(res=>{
+                        this.status = res.status.status
+                        this.info = res.info
+                        if (res.last_success_date){
+                            this.lastSuccessDate = res.last_success_date.split('T')[0]
+                        }
+                    })
+                },
+                subscribe(){
+                    localStorage.email = this.input
+                    fetch('https://dfqed3.deta.dev/subscribe?'+new URLSearchParams({
+                        email: this.input
+                    })).then(res=>res.json()).then(res=>{
+                        if (res.success){
+                            this.$notify({
+                                title: 'Successfully subscribed',
+                                message: 'We will let you know once the server recovers. (You will be notified only once.)'
+                            })
+                        } else if (res.msg){
+                            this.$notify.info({
+                                title: 'Error',
+                                message: res.msg
+                            })
+                        }
+                    })
+                }
+            },
+            mounted(){
+                if(localStorage.email){
+                    this.input = localStorage.email
+                }
+                this.getStatus()
             }
             })
             $.getJSON('model_annotations.json',function(res){
@@ -122,6 +186,7 @@
                 tf.models.push({title: res.titles[m], val: res.annotations[m]})
             }
             })
+            
         })
         </script>
         <!-- Place this tag in your head or just before your close body tag. -->

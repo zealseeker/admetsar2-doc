@@ -1,0 +1,1 @@
+{"id":"8a4120ca-1ea9-4996-b368-b913d29106fc","space":10760,"runtime":"python3.7","name":"check_state","path":"dfqed3","project":"a05kiek2","account":"144798365827","region":"eu-west-2","deps":["deta","requests","fastapi"],"envs":["EMAIL_PASSWORD"],"public":true,"log_level":"debug","cron":"1 hour"}

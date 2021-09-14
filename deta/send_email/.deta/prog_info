@@ -1,0 +1,1 @@
+{"id":"f978cc85-ce9a-446e-8299-de4e338027de","space":10760,"runtime":"python3.7","name":"send_email","path":"ixvbv6","project":"a05kiek2","account":"144798365827","region":"eu-west-2","deps":["deta"],"envs":["EMAIL_PASSWORD"],"public":true,"log_level":"debug","cron":"5 minutes"}

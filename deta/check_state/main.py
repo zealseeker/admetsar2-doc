@@ -17,7 +17,7 @@ db = deta.Base("admetsar2")
 emaildb = deta.Base("emails")
 origins = [
     "http://localhost:8000",
-    "https://zealseeker.github.io/admetsar2-doc"
+    "https://zealseeker.github.io"
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -95,6 +95,7 @@ def cron_job(event):
     logging.info("Test logging")
     last_try = db.get('last_try')
     if host_ok and server_ok:
+        status = SUCCESS
         if last_try and last_try['status'] != SUCCESS:
             send_success_email()
             notify_subscriptors()
@@ -127,9 +128,11 @@ def cron_job(event):
 
 def send_alert():
     emaildb.insert({'email': 'yanyanghong@163.com', 'reason': 'alert', 'notified': False})
+    emaildb.insert({'email': '490579089@qq.com', 'reason': 'alert', 'notified': False})
 
 def send_success_email():
     emaildb.insert({'email': 'yanyanghong@163.com', 'reason': 'success', 'notified': False})
+    emaildb.insert({'email': '490579089@qq.com', 'reason': 'success', 'notified': False})
 
 def notify_subscriptors():
     for each in emaildb.fetch({'reason': 'subscribe'}):

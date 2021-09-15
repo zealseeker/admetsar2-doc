@@ -17,12 +17,16 @@ EMAIL_FROM_NAME = 'admetSAR'
 emaildb = deta.Base("emails")
 
 def create_success_email():
-    mail = MIMEText("admetSAR available now", 'html', 'utf-8')
+    with open('success_email.html') as fp:
+        html = fp.read()
+    mail = MIMEText(html, 'html', 'utf-8')
     mail['Subject'] = 'admetSAR available now'
     return mail
 
 def create_alert_email():
-    mail = MIMEText("admetSAR unavailable now", 'html', 'utf-8')
+    with open('alert_email.html') as fp:
+        html = fp.read()
+    mail = MIMEText(html, 'html', 'utf-8')
     mail['Subject'] = 'admetSAR unavailable now'
     return mail
 

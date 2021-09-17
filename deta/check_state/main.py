@@ -1,15 +1,12 @@
+from datetime import datetime
+import logging
+import os
+import re
+import requests
 from deta import App
+from deta import Deta
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import requests
-from deta import Deta
-from datetime import datetime
-import smtplib
-import threading
-import logging
-from email.mime.text import MIMEText
-from email.utils import formataddr
-import os
 
 deta = Deta()
 app = App(FastAPI())
@@ -46,6 +43,9 @@ def http():
 
 @app.get('/subscribe')
 def subscribe(email=None):
+    # verify email format
+    if not re.findall("^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        return {'Success': False, 'msg': 'Wrong email format'}
     if email is not None:
         if emaildb.fetch({'email': email, 'reason': 'subscribe',}).items:
             return {'success': False, 'msg': 'You have already subscribed'}

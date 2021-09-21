@@ -35,7 +35,8 @@ def create_alert_email():
 def app(event):
     start_time = time()
     mail_list = emaildb.fetch(query={'reason?ne':'subscribe', 'notified': False}, limit=10).items
-    msgs = []
+    smtp = smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT, timeout=30)
+    smtp.login(EMAIL_FROM, EMAIL_PASSWORD)
     n = len(mail_list)
     for mail_item in mail_list:
         reason = mail_item['reason']
@@ -49,20 +50,10 @@ def app(event):
             continue
         mail['From'] = formataddr([EMAIL_FROM_NAME, EMAIL_FROM])
         mail['To'] = formataddr([address.split('@')[0], address])
-        msgs.append(mail)
-    send_emails(msgs)
-    for mail_item in mail_list:
+        smtp.sendmail(EMAIL_FROM, mail['To'], mail.as_string())
         mail_item['notified'] = True
         mail_item['date'] = datetime.isoformat(datetime.utcnow())
         emaildb.put(mail_item)
+    smtp.quit()
     used_time = time() - start_time
     return 'Success, send {} emails, used {:.1f}s'.format(n, used_time)
-
-
-def send_emails(msgs):
-    smtp = smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT, timeout=30)
-    smtp.login(EMAIL_FROM, EMAIL_PASSWORD)
-    for msg in msgs:
-        smtp.sendmail(EMAIL_FROM, msg['To'], msg.as_string())
-    smtp.quit()
-    return {'State': 'Success'}

@@ -97,11 +97,12 @@ def cron_job(event):
     if host_ok and server_ok:
         status = SUCCESS
         if last_try and last_try['status'] != SUCCESS:
-            send_success_email()
+            if last_try['times'] >= 3:
+                send_success_email()
             notify_subscriptors()
         db.put({'status': SUCCESS}, 'status')
         db.put({'status': SUCCESS, 'times': 0}, 'last_try')
-        db.put({'date': datetime.utcnow()}, 'last_success')
+        db.put({'date': datetime.isoformat(datetime.utcnow())}, 'last_success')
         return 'Success'
     elif host_ok and not server_ok:
         status = SERVER_DOWN
@@ -125,6 +126,7 @@ def cron_job(event):
     db.put({'status': status}, 'status')
     last_try['date'] = datetime.isoformat(datetime.utcnow())
     db.put(last_try, 'last_try')
+    return status
 
 def send_alert():
     emaildb.insert({'email': 'yanyanghong@163.com', 'reason': 'alert', 'notified': False})
@@ -135,6 +137,6 @@ def send_success_email():
     emaildb.insert({'email': '490579089@qq.com', 'reason': 'success', 'notified': False})
 
 def notify_subscriptors():
-    for each in emaildb.fetch({'reason': 'subscribe'}):
+    for each in emaildb.fetch({'reason': 'subscribe'}).items:
         each['reason'] = 'success'
         emaildb.put(each)
